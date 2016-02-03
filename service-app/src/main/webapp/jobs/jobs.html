@@ -1,0 +1,50 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/app.css">
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <div class="row" style="background-color: #fff">
+        <div class="col-md-3"></div>
+        <div class="col-md-9">
+            <p style="float:right; margin-top: 3em;">
+                Logged in as <b>User</b> | <a href="#">Logout</a> | <a href="#">Home</a>
+            </p>
+        </div>
+      </div>
+
+      <div id="jobs-main" class="row"> 
+      </div>
+
+      <footer class="footer text-center">
+        <div class="container">
+          <p>Snowball - Job Service</p>
+        </div>
+      </footer>
+
+    </div>
+
+    <script src="js/jquery/jquery.min.js"></script>
+    <script src="js/canjs/can.jquery.js"></script>
+    <script src="js/canjs/can.stache.js"></script>
+    <script src="js/canjs/can.list.sort.js"></script>
+<!--
+    <script src="js/app/fixtures/jobs.js"></script>
+-->
+    <script src="js/rxjs/rx.all.min.js"></script>
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+
+    <script src="js/app/models/job.js"></script>
+    <script src="js/app/components/jobs_table/jobs_table.js"></script>
+    <script src="js/app/components/job_form/job_form.js"></script>
+    <script src="js/app/app.js"></script>
+  </body>
+</html>

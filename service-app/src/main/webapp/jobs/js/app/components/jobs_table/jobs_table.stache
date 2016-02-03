@@ -1,0 +1,37 @@
+<table class="table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>Status</th>
+      <th>Last Start Date</th>
+      <th>Last End Date</th>
+      <th>Next Start Date</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#if items.isPending}} 
+      <tr>
+        <td colspan="6">Loading...</td>
+      </tr>  
+    {{else}}
+      {{#each items.value}}
+      <tr>
+        <td><input type="hidden" name="jobId" value="{{id}}"/></td>
+        <td>{{name}}</td>
+        <td>{{status}}</td>
+        <td>{{lastStartDate}}</td>
+        <td>{{lastEndDate}}</td>
+        <td>{{nextStartDate}}</td>
+        <td>
+          {{#if isNotFired(status)}}
+          <a class="btn btn-success" href="#" role="button" data-toggle="modal" data-target="#run-modal-{{id}}" can-click="{startJob(id)}">Start</a>
+          {{/if}}
+          <div class="modal fade" id="run-modal-{{id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+        </td>
+      </tr>
+      {{/each}}
+    {{/if}}  
+  </tbody>
+</table>

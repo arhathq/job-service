@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="jobRepository" class="ua.dn.arhathq.snowball.repository.JobRepositoryImpl"/>
+
+    <bean id="schedulerService" class="ua.dn.arhathq.snowball.service.quartz.QuartzJobService">
+        <constructor-arg index="0" ref="scheduler"/>
+        <constructor-arg index="1" ref="jobRepository"/>
+        <constructor-arg index="2" ref="jobHelperMethods"/>
+    </bean>
+
+    <bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="quartzProperties" value="quartz.properties"/>
+        <property name="schedulerListeners">
+            <list>
+                <bean class="ua.dn.arhathq.snowball.service.quartz.AppSchedulerListener">
+                    <constructor-arg index="0" ref="jobRepository"/>
+                    <constructor-arg index="1" ref="jobHelperMethods"/>
+                </bean>
+            </list>
+        </property>
+        <property name="globalTriggerListeners">
+            <list>
+                <bean class="ua.dn.arhathq.snowball.service.quartz.AppTriggerListener">
+                    <constructor-arg index="0" ref="jobRepository"/>
+                    <constructor-arg index="1" ref="jobHelperMethods"/>
+                </bean>
+            </list>
+        </property>
+        <property name="globalJobListeners">
+            <list>
+                <bean class="ua.dn.arhathq.snowball.service.quartz.AppJobListener">
+                    <constructor-arg index="0" ref="jobRepository"/>
+                    <constructor-arg index="1" ref="jobHelperMethods"/>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="jobHelperMethods" class="ua.dn.arhathq.snowball.service.quartz.JobHelperMethodsImpl"/>
+
+</beans>

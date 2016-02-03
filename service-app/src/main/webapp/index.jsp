@@ -1,0 +1,1 @@
+<%response.sendRedirect("jobs/jobs.html"); %>

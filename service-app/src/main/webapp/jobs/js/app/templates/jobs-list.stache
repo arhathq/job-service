@@ -1,0 +1,11 @@
+<div id="jobs-page">
+
+<div class="page-header">
+  <h2>Job List</h2>
+</div>
+
+<div class="table-responsive">
+  <jobs-table></jobs-table>
+</div>
+
+</div>

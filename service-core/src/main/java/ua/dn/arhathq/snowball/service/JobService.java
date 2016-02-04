@@ -7,6 +7,7 @@ import ua.dn.arhathq.snowball.LaunchOptions;
 import ua.dn.arhathq.snowball.domain.Job;
 import ua.dn.arhathq.snowball.domain.JobList;
 
+import java.io.Serializable;
 import java.util.Map;
 
 public interface JobService {
@@ -15,7 +16,7 @@ public interface JobService {
 
     Job getJob(String id) throws JobNotFoundException;
 
-    void start(String id, Map<String, Object> params, LaunchOptions options) throws JobNotFoundException, JobExecutionException;
+    void start(String id, Map<String, Serializable> params, LaunchOptions options) throws JobNotFoundException, JobExecutionException;
 
     void stop(String id) throws JobNotFoundException, JobExecutionException;
 

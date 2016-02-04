@@ -13,6 +13,7 @@ import ua.dn.arhathq.snowball.repository.JobRepository;
 import ua.dn.arhathq.snowball.service.*;
 import ua.dn.arhathq.snowball.JobExecutionException;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -56,7 +57,7 @@ public class QuartzJobService implements JobService {
     }
 
     @Override
-    public void start(String id, Map<String, Object> params, LaunchOptions options) throws JobNotFoundException, JobExecutionException {
+    public void start(String id, Map<String, Serializable> params, LaunchOptions options) throws JobNotFoundException, JobExecutionException {
 
         Job job  = jobRepository.getJob(id);
         if (job == null) {

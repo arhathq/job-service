@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ua.dn.arhathq.snowball.core.FilterOptions;
 import ua.dn.arhathq.snowball.domain.Job;
@@ -15,9 +14,11 @@ import ua.dn.arhathq.snowball.JobNotFoundException;
 import ua.dn.arhathq.snowball.service.JobService;
 import ua.dn.arhathq.snowball.LaunchOptions;
 
+import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Map;
 
-@Controller
+@RestController
 public class JobsController {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
@@ -59,9 +60,14 @@ public class JobsController {
     }
 
     @RequestMapping(value = "/jobs/{id}/start", method = RequestMethod.POST)
-    public @ResponseBody ResponseEntity<String> start(@PathVariable String id, @RequestBody Map<String, Object> payload) {
+    public @ResponseBody ResponseEntity<String> start(@PathVariable String id, @RequestBody String payload) {
         try {
-            Map<String, Object> params = (Map<String, Object>) payload.get("parameters");
+
+            Map<String, Serializable> payloadData = JobJson.parse(payload);
+            Map<String, Serializable> params = new HashMap<>();
+            for (Map.Entry<String, Serializable> entry: payloadData.entrySet()) {
+                params.put(entry.getKey(), entry.getValue());
+            }
             jobService.start(id, params, new LaunchOptions()); //todo: implement launch options
 
             String json = JobJson.getAcknowledge(id);

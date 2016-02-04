@@ -8,6 +8,7 @@ import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
 import javax.json.stream.JsonParser;
+import java.io.Serializable;
 import java.io.StringReader;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -57,11 +58,12 @@ public class JobJson {
         return Json.createObjectBuilder().add("errorcode", errorCode).add("errormessage", errorMessage).build().toString();
     }
 
-    public static Job parse(String jobId, String payload) {
+    public static Map<String, Serializable> parse(String payload) {
         JsonParser jsonParser = Json.createParser(new StringReader(payload));
 
+        Map<String, Serializable> payloadData = new HashMap<>();
         try {
-            Map<String, String> parameters = new HashMap<>();
+            HashMap<String, String> parameters = new HashMap<>();
             String cron = null;
 
             String key = null, obj = null;
@@ -86,12 +88,10 @@ public class JobJson {
                     key = null;
                 }
             }
+            payloadData.put("parameters", parameters);
+            payloadData.put("cron", cron);
 
-            Job job = new Job(jobId);
-            job.setParameters(parameters);
-            job.setCron(cron);
-
-            return job;
+            return payloadData;
         } finally {
             jsonParser.close();
         }

@@ -1,11 +1,69 @@
+var PageableModel = can.Map.extend({
+    asc: true,
+    sortBy: 'id',
+    define: {
+        count: {
+            type: "number",
+            value: Infinity,
+            // Keeps count above 0.
+            set: function(newCount) {
+                return newCount < 0 ? 0 : newCount;
+            }
+        },
+        offset: {
+            type: "number",
+            value: 0,
+            // Keeps offset between 0 and count
+            set: function(newOffset) {
+                var count = this.attr("count");
+                return newOffset < 0 ?
+                    0 :
+                    Math.min(newOffset, !isNaN( count - 1) ?
+                    count - 1 :
+                        Infinity);
+            }
+        },
+        limit: {
+            type: "number",
+            value: 5
+        },
+        page: {
+            // Setting page changes the offset
+            set: function(newVal) {
+                this.attr('offset', (parseInt(newVal) - 1) *
+                    this.attr('limit'));
+            },
+            // The page value is derived from offset and limit.
+            get: function () {
+                return Math.floor(this.attr('offset') /
+                        this.attr('limit')) + 1;
+            }
+        }
+    }
+});
+
 var JobViewModel = can.Map.extend({
+	init : function() {
+	},
 	define: {
 		items: {
 			get: function() {
-				console.log('Getting jobs...');
-				return Job.findAll();
+                var params = this.attr('params').serialize();
+				console.log('Getting jobs with params [' + JSON.stringify(params) + '] ...');
+				return Job.findAll(params).then(function(data) {
+                    console.log('Returned jobs [' + JSON.stringify(data) + '] ...');
+                    return data;
+                }, function(error) {
+                    console.log('Error ' + error);
+                });
 			}
-		}
+		},
+        params: {
+            value: new PageableModel(),
+            set: function(newVal) {
+                return newVal;
+            }
+        }
 	},
 	startJob: function(id) {
 		console.log('Showing form for job [' + id + ']');

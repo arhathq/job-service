@@ -28,7 +28,10 @@ public class JobJson {
                     add("nextStartDate", job.getNextStartDate() != null ? job.getNextStartDate().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME) : "");
             jobsBuilder.add(jobBuilder);
         }
-        return jobsBuilder.build().toString();
+        return Json.createObjectBuilder().
+                add("count", jobList.getJobCount()).
+                add("data", jobsBuilder).
+                build().toString();
     }
 
     public static String getJob(Job job) {

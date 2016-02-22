@@ -3,7 +3,7 @@ package ua.dn.arhathq.snowball.core;
 public class FilterOptions {
 
     private int offset;
-    private int size;
+    private int limit;
     private boolean asc;
     private String sortBy;
 
@@ -15,12 +15,12 @@ public class FilterOptions {
         this.offset = offset;
     }
 
-    public int getSize() {
-        return size;
+    public int getLimit() {
+        return limit;
     }
 
-    public void setSize(int size) {
-        this.size = size;
+    public void setLimit(int limit) {
+        this.limit = limit;
     }
 
     public boolean isAsc() {

@@ -1,4 +1,12 @@
 var Job = can.Model.extend({
-	findAll: "GET /snowball/rest/jobs",
-	findOne: "GET /snowball/rest/jobs/{id}"
+	findAll: function(params) {
+		var self = this;
+		return $.get('/snowball/rest/jobs', params, undefined, "json").
+		then(function(data) {
+			return self.models(data);
+		});
+	},
+	findOne: "GET /snowball/rest/jobs/{id}",
+	start: "POST /snowball/rest/jobs/{id}/start",
+	stop: "POST /snowball/rest/jobs/{id}/stop"
 }, {});

@@ -1,11 +1,50 @@
 <div id="jobs-page">
 
-<div class="page-header">
+<div>
   <h2>Job List</h2>
+</div>
+
+<div class="col-xs-12" style="float: none; padding: 0px 0px 15px 0px;">
+  <div style="width: 99%; display: table-cell; white-space: nowrap; vertical-align: middle;">
+    <div class="form-inline">
+      <input class="form-control" placeholder="Search jobs" type="text" style="padding-left: 30px;">
+      <span class="glyphicon glyphicon-search" style="position: absolute; top: 9px; left: 10px; color: #ccc;"></span>
+    </div>
+  </div>
+  <div style="width: 1%; display: table-cell; white-space: nowrap; vertical-align: middle;">
+    <div style="margin-left: 10px; position: relative; display: inline-block; vertical-align: middle;">
+      <a class="btn btn-success" href="#" role="button" style="float: none; position: relative; display: inline-block; margin-bottom: 0; margin-left: 0; color: #5cb85c; background-color: transparent;">
+        <span class="glyphicon glyphicon-pencil"></span>
+      </a>
+      <a class="btn btn-danger" href="#" role="button" style="float: none; position: relative; display: inline-block; margin-bottom: 0; margin-left: 0; color: #c9302c; background-color: transparent;">
+        <span class="glyphicon glyphicon-remove"></span>
+      </a>
+    </div>
+  </div>
 </div>
 
 <div class="table-responsive">
   <jobs-table></jobs-table>
+</div>
+
+<div class="pager">
+    <ul class="pagination">
+      <li>
+        <a href="#" aria-label="Previous">
+          <span aria-hidden="true">«</span>
+        </a>
+      </li>
+      <li class="active"><a href="#">1</a></li>
+      <li><a href="#">2</a></li>
+      <li><a href="#">3</a></li>
+      <li><a href="#">4</a></li>
+      <li><a href="#">5</a></li>
+      <li>
+        <a href="#" aria-label="Next">
+          <span aria-hidden="true">»</span>
+        </a>
+      </li>
+    </ul>
 </div>
 
 </div>

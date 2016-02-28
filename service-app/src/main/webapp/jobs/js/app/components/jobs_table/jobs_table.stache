@@ -3,7 +3,7 @@
     <tr>
       <th></th>
       <th>Name</th>
-      <th>Status</th>
+      <th class="headerSortDown">Status</th>
       <th>Last Start Date</th>
       <th>Last End Date</th>
       <th>Next Start Date</th>

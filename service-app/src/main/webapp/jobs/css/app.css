@@ -9,6 +9,10 @@ html {
   background-color: #fff;
 }
 
+.heading {
+    background-color: #fff;
+}
+
 .form-group {
     padding: 1px 25px 1px 25px;
 }
@@ -24,49 +28,33 @@ html {
     outline: 0;
 }
 
-/*
-
-.modal-header {
-    min-height: 16.43px;
-    padding: 15px 15px 15px 15px;
-    border-bottom: 0px;
+.pager li > a {
+    border-radius: 0px;
 }
 
-.modal-body {
-    position: relative;
-    padding: 15px 15px 15px 15px;
+.headerSortUp,
+.headerSortDown {
+    white-space: nowrap;
+    cursor: pointer;
+    font-weight: 700 !important;
+    color: #1ca8dd !important;
+    border-bottom-color: #1ca8dd !important;
 }
-
-.modal-footer {
-    padding: 15px 15px 15px 15px;
-    text-align: left;
-    border-top: 0px;
+.headerSortUp:after,
+.headerSortDown:after {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    content: "";
+    margin-right: -10px;
+    margin-bottom: 2px;
+    margin-left: 5px;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
 }
-
-.checkbox {
-    margin-bottom: 0px;
+.headerSortUp:after {
+    border-top: 4px solid;
 }
-
-.btn:focus,
-.btn:active:focus,
-.btn.active:focus,
-.btn.focus,
-.btn:active.focus,
-.btn.active.focus {
-    outline: none;
+.headerSortDown:after {
+    border-bottom: 4px solid;
 }
-
-.btn-link {
-    padding: 5px 10px 0px 0px;
-    color: #95a5a6;
-}
-
-.btn-link:hover, .btn-link:focus {
-    color: #2c3e50;
-    text-decoration: none;
-}
-
-.glyphicon {
-    top: 0px;
-}
-*/

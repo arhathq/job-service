@@ -56,5 +56,5 @@ var JobDetailsViewModel = can.Map.extend({
 can.Component.extend({
 	tag: 'job-form',
   	viewModel: JobDetailsViewModel,
-  	template: can.view('js/app/components/job_form/job_form.stache'),
+  	template: can.view('js/app/components/job_form/job_form.stache')
 });

@@ -1,51 +1,58 @@
-$(function () {
-//can.fixture.delay = 1000;
+steal('jquery',
+    'can',
+    'app/templates/jobs-list.mustache',
+    'app/components/jobs_table',
+    'rxjs/rx.all.min',
+    function ($, can, JobListView, Job) {
 
-  	var AppState = can.Map.extend({});
+        //can.fixture.delay = 1000;
 
-  	var appState = new AppState();
+        var AppState = can.Map.extend({});
 
-  	$('#jobs-main').html(can.view('js/app/templates/jobs-list.stache', appState));
+        var appState = new AppState();
 
-	can.route(':page', { page: 'jobs' });
+        $('#jobs-main').html(JobListView({}));
 
-  	can.route.map(appState);
+        can.route(':page', {page: 'jobs'});
 
-  	can.route.ready();
+        can.route.map(appState);
 
-	var fromEvent = Rx.Observable.fromEvent;
+        can.route.ready();
 
-	var ws = new WebSocket("ws://localhost:8080/snowball/jobs");
-	//var ws = new WebSocket("ws://wiki-update-sockets.herokuapp.com/");
+        var fromEvent = Rx.Observable.fromEvent;
 
-	var openStream = fromEvent(ws, 'open');
-	var closeStream = fromEvent(ws,'close');
+        var ws = new WebSocket("ws://localhost:8080/snowball/jobs");
+        //var ws = new WebSocket("ws://wiki-update-sockets.herokuapp.com/");
 
-	var messageStream = fromEvent(ws, 'message').delaySubscription(openStream).takeUntil(closeStream);
+        var openStream = fromEvent(ws, 'open');
+        var closeStream = fromEvent(ws, 'close');
 
-	openStream.subscribe(function () {
-		console.log("Connection opened");
-	});
+        var messageStream = fromEvent(ws, 'message').delaySubscription(openStream).takeUntil(closeStream);
 
-	closeStream.subscribe(function () {
-		console.log("Connection is closed...");
-	});
+        openStream.subscribe(function () {
+            console.log("Connection opened");
+        });
 
-	var updateStream = messageStream.map(function(event) {
-		console.log("Update Stream " + event);
-		var dataString = event.data;
-		return JSON.parse(dataString);
-	});
+        closeStream.subscribe(function () {
+            console.log("Connection is closed...");
+        });
 
-	// Calculate the rate of updates over time
-	var updateCount = updateStream.scan(0, function(value) {
-		return ++value;
-	});
+        var updateStream = messageStream.map(function (event) {
+            console.log("Update Stream " + event);
+            var dataString = event.data;
+            return JSON.parse(dataString);
+        });
 
-	var samplingTime = 2000;
-	var sampledUpdates = updateCount.sample(samplingTime);
+        // Calculate the rate of updates over time
+        var updateCount = updateStream.scan(0, function (value) {
+            return ++value;
+        });
 
-	sampledUpdates.subscribe(function(value) {
-		console.log(value);
-	});
-});
+        var samplingTime = 2000;
+        var sampledUpdates = updateCount.sample(samplingTime);
+
+        sampledUpdates.subscribe(function (value) {
+            console.log(value);
+        });
+
+    });
